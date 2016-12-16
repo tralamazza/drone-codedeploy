@@ -1,17 +1,17 @@
 build:
-  image: golang:1.5
-  environment:
-    - CGO_ENABLED=0
-  commands:
-    - make deps
-    - make vet
-    - make build
-    - make test
+  test:
+    image: golang:1.5
+    environment:
+      - CGO_ENABLED=0
+      - GO15VENDOREXPERIMENT=1
+    commands:
+      - go vet
+      - go test
+      - go build -ldflags "-s -w -X main.version=$DRONE_BUILD_NUMBER"
+    when:
+      event: push
 
 publish:
-  coverage:
-    when:
-      branch: master
   docker:
     username: $$DOCKER_USER
     password: $$DOCKER_PASS
@@ -20,14 +20,6 @@ publish:
     tag: latest
     when:
       branch: master
-  docker:
-    username: $$DOCKER_USER
-    password: $$DOCKER_PASS
-    email: $$DOCKER_EMAIL
-    repo: plugins/drone-codedeploy
-    tag: develop
-    when:
-      branch: develop
 
 plugin:
   name: CodeDeploy
