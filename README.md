@@ -24,7 +24,7 @@ Build the docker image with the following commands:
 
 ```
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -tags netgo
-docker build --rm=true -t plugins/codedeploy .
+docker build --rm=true -t tralamazza/drone-codedeploy .
 ```
 
 Please note incorrectly building the image for the correct x64 linux and with
@@ -41,11 +41,16 @@ Execute from the working directory:
 
 ```
 docker run --rm \
+  -e PLUGIN_APPLICATION=DemoApplication \
   -e PLUGIN_REGION=eu-west-1 \
-  -e PLUGIN_DEPLOYMENT_GROUP=mywebservers \
-  -e AWS_ACCESS_KEY_ID=<token> \
-  -e AWS_SECRET_ACCESS_KEY=<secret> \
+  -e PLUGIN_DEPLOYMENT_GROUP=DemoFleet \
+  -e AWS_ACCESS_KEY_ID=<key goes here> \
+  -e AWS_SECRET_ACCESS_KEY=<secret goes here> \
+  -e PLUGIN_REVISION_TYPE=S3 \
+  -e PLUGIN_BUNDLE_TYPE=zip \
+  -e PLUGIN_BUCKET_NAME=aws-codedeploy-eu-west-1 \
+  -e PLUGIN_BUCKET_KEY=samples/latest/SampleApp_Linux.zip \
   -v $(pwd):$(pwd) \
   -w $(pwd) \
-  plugins/codedeploy --dry-run
+  tralamazza/drone-codedeploy
 ```

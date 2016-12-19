@@ -134,12 +134,14 @@ func (p Plugin) Exec() error {
 
     params := &codedeploy.CreateDeploymentInput{
         ApplicationName:               aws.String(p.Config.Application),
-        DeploymentConfigName:          aws.String(p.Config.DeploymentConfig),
         DeploymentGroupName:           aws.String(p.Config.DeploymentGroup),
         Description:                   aws.String(p.Config.Description),
         IgnoreApplicationStopFailures: aws.Bool(p.Config.IgnoreStopFailures),
         Revision:                      revision,
-        UpdateOutdatedInstancesOnly:   aws.Bool(true),
+    }
+
+    if p.Config.DeploymentConfig != "" {
+        params.DeploymentConfigName = aws.String(p.Config.DeploymentConfig)
     }
 
     if _, err := svc.CreateDeployment(params); err != nil {
