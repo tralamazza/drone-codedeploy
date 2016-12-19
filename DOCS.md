@@ -30,10 +30,10 @@ It is highly recommended to put the **AWS_ACCESS_KEY_ID** and
 be done using the drone-cli.
 
 ```bash
-drone secret add --image=plugins/codedeploy \
+drone secret add --image=tralamazza/codedeploy \
     octocat/hello-world AWS_ACCESS_KEY_ID <YOUR_ACCESS_KEY_ID>
 
-drone secret add --image=plugins/codedeploy \
+drone secret add --image=tralamazza/codedeploy \
     octocat/hello-world AWS_SECRET_ACCESS_KEY <YOUR_SECRET_ACCESS_KEY>
 ```
 
@@ -53,7 +53,7 @@ The following is a sample configuration in your .drone.yml file:
 ```yaml
 pipeline:
   deploy:
-    image: plugins/codedeploy
+    image: tralamazza/codedeploy
     access_key: 970d28f4dd477bc184fbd10b376de753
     secret_key: 9c5785d3ece6a9cdefa42eb99b58986f9095ff1c
     region: us-east-1

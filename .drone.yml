@@ -16,7 +16,7 @@ publish:
     username: $$DOCKER_USER
     password: $$DOCKER_PASS
     email: $$DOCKER_EMAIL
-    repo: plugins/drone-codedeploy
+    repo: tralamazza/drone-codedeploy
     tag: latest
     when:
       branch: master
@@ -25,7 +25,7 @@ plugin:
   name: CodeDeploy
   desc: Deploy or update a project on AWS CodeDeploy
   type: deploy
-  image: plugins/drone-codedeploy
+  image: tralamazza/drone-codedeploy
   labels:
     - aws
     - codedeploy
