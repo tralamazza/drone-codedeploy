@@ -1,5 +1,8 @@
-Use this plugin for deplying an application to CodeDeploy. You can override the
-default configuration with the following parameters:
+Use this plugin for deplying an application to CodeDeploy.
+
+## Config
+
+The following parameters are used to configure the plugin:
 
 * `access_key` - AWS access key ID
 * `secret_key` - AWS secret access key
@@ -17,13 +20,40 @@ default configuration with the following parameters:
 * `bucket_etag` - ETag for `S3` revision type, optional
 * `bucket_version` - Version for `S3` revision type, optional
 
+The following secret values can be set to configure the plugin.
+
+* **AWS_ACCESS_KEY_ID** - corresponds to `access_key`
+* **AWS_SECRET_ACCESS_KEY** - corresponds to `secret_key`
+
+It is highly recommended to put the **AWS_ACCESS_KEY_ID** and
+**AWS_SECRET_ACCESS_KEY** into a secret so it is not exposed to users. This can
+be done using the drone-cli.
+
+```bash
+drone secret add --image=tralamazza/drone-codedeploy \
+    octocat/hello-world AWS_ACCESS_KEY_ID <YOUR_ACCESS_KEY_ID>
+
+drone secret add --image=tralamazza/drone-codedeploy \
+    octocat/hello-world AWS_SECRET_ACCESS_KEY <YOUR_SECRET_ACCESS_KEY>
+```
+
+Then sign the YAML file after all secrets are added.
+
+```bash
+drone sign octocat/hello-world
+```
+
+See [secrets](http://readme.drone.io/0.5/usage/secrets/) for additional
+information on secrets.
+
 ## Example
 
 The following is a sample configuration in your .drone.yml file:
 
 ```yaml
-deploy:
-  codedeploy:
+pipeline:
+  deploy:
+    image: tralamazza/drone-codedeploy
     access_key: 970d28f4dd477bc184fbd10b376de753
     secret_key: 9c5785d3ece6a9cdefa42eb99b58986f9095ff1c
     region: us-east-1
