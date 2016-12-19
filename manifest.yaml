@@ -3,7 +3,7 @@ tags: [ aws, amazon, codedeploy ]
 logo: logo.svg
 license: apache2
 author: tralamazza
-image: tralamazza/codedeploy
+image: tralamazza/drone-codedeploy
 
 description: |
   Use this plugin for deplying an application to CodeDeploy.
@@ -11,7 +11,7 @@ description: |
 example: |
   pipeline:
     deploy:
-      image: tralamazza/codedeploy
+      image: tralamazza/drone-codedeploy
       access_key: 970d28f4dd477bc184fbd10b376de753
       secret_key: 9c5785d3ece6a9cdefa42eb99b58986f9095ff1c
       region: us-east-1
@@ -43,7 +43,7 @@ examples:
     code: >
       pipeline:
         deploy:
-          image: tralamazza/codedeploy
+          image: tralamazza/drone-codedeploy
           access_key: 970d28f4dbd477bc184fbd10b376de753
           secret_key: 9c5785d3ece6a9cdefa42eb99b58986f9095ff1c
           region: us-east-1
